@@ -9,30 +9,34 @@ var napTime = lunchTime + 2; // 2PM
 var timeEventJS = document.getElementById("timeEvent");
 var image = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/cat5.jpg";
 var LOLcatImageJS = document.getElementById("lolcat");
-if (time == partyTime){
-	image = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/08/partyTime.jpg";
+	if (time == partyTime){
+		image = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/08/partyTime.jpg";
     messageText = "IZ PARTEE TIME!!";
-} else if (time == napTime) {
-	image = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/cat3.jpg";
+	}
+	else if (time == napTime) {
+		image = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/cat3.jpg";
     messageText = "IZ NAP TIME...";
-} else if (time == lunchTime) {
-	image = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/cat2.jpg";
+	}
+	else if (time == lunchTime) {
+		image = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/cat2.jpg";
     messageText = "IZ NOM NOM NOM TIME!!";
-} else if (time == wakeupTime) {
-	image = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/cat1.jpg";
+	}
+	else if (time == wakeupTime) {
+		image = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/cat1.jpg";
     messageText = "IZ TIME TO GETTUP.";
-} else if (time < noon) {
-	image = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/cat5.jpg";
-    messageText = "Good morning!";
-} else if (time > evening) {
-	image = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/cat5.jpg";
+	}
+	else if (time < noon) {
+		messageText = "Good morning!";
+	}
+	else if (time > evening) {
     messageText = "Good Evening!";
-} else {
-	image = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/cat5.jpg";
-    messageText = "Good afternoon!";
-}
+	}
+	else {
+	  messageText = "Good afternoon!";
+	}
 timeEventJS.innerText = messageText;
 LOLcatImageJS.src = image;
+
 var updateClock = function()
 {
 var showCurrentTime = function()
@@ -80,31 +84,32 @@ updateClock();
 var oneSecond = 1000;
 setInterval( updateClock, oneSecond);
 ///////
-var isPartyTime = false;
+var isPartyTime;
 var PartyButton = document.getElementById("partyTimeButton");
-var ButtonText;
 
 var partyEvent = function() {
 
-   if (isPartyTime === false) {
+   if (isPartyTime == false) {
       isPartyTime = true;
       time = partyTime;
-      // text in the button should read "Party Over"
-      // color of the button should be "#0A8DAB" (bonus!)
-      ButtonText = "Party Over";
-      PartyButton.style.backgroundColor = "#0A8DAB";
+			PartyButton.innerText = "PARTY TIME!";
+      PartyButton.style.backgroundColor = "#222";
+			LOLcatImageJS.src = image;
+
    }
    else {
       isPartyTime = false;
       time = new Date().getHours();
-      // text in the button should read "PARTY TIME!"
-      // color of the button should be "#222" (bonus!)
-      ButtonText = "PARTY TIME!";
-      PartyButton.style.backgroundColor = "#222";
+      PartyButton.innerText = "PARTY OVER :(";
+      PartyButton.style.backgroundColor = "#0A8DAB";
+			LOLcatImageJS.src = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/08/partyTime.jpg"
+			messageText = "IZ PARTEE TIME!!";
+
    }
-PartyButton.innerText = ButtonText;
+	 
 };
 PartyButton.addEventListener("click", partyEvent);
+
 /////
 var wakeUpTimeSelector =  document.getElementById("wakeUpTimeSelector");
 var lunchTimeSelector =  document.getElementById("lunchTimeSelector");
@@ -122,6 +127,7 @@ var napEvent = function()
 {
     var napTime = napTimeSelector.value;
 };
+PartyButton.addEventListener("click", partyEvent);
 wakeUpTimeSelector.addEventListener('change', wakeUpEvent);
 lunchTimeSelector.addEventListener('change', lunchEvent);
 napTimeSelector.addEventListener('change', napEvent);
